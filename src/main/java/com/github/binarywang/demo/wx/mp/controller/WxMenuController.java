@@ -91,9 +91,10 @@ public class WxMenuController {
         if (servletRequestAttributes != null) {
             HttpServletRequest request = servletRequestAttributes.getRequest();
             URL requestURL = new URL(request.getRequestURL().toString());
+            String portPart = requestURL.getPort() == -1 ? "" : ":" + requestURL.getPort();
             String url = WxMpConfiguration.getMpServices().get(appid)
                 .oauth2buildAuthorizationUrl(
-                    String.format("%s://%s/wx/redirect/%s/greet", requestURL.getProtocol(), requestURL.getHost(), appid),
+                    String.format("%s://%s%s/wx/redirect/%s/greet", requestURL.getProtocol(), requestURL.getHost(), portPart, appid),
                     WxConsts.OAuth2Scope.SNSAPI_USERINFO, null);
             button34.setUrl(url);
         }
